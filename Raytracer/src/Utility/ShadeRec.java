@@ -4,13 +4,15 @@ import World.World;
 
 public class ShadeRec
 {
-        boolean hitAnObject;
-        Point3D localHitPoint;
-        Normal normal;
-        RGBColor color;
-        World w;
+    private boolean hitAnObject;
+    private Point3D hitPoint;
+    private Point3D localHitPoint;
+    private Normal normal;
+    private RGBColor color;
+    private DepthBuffer depthBuffer;
+    private World w;
 
-    boolean getHitAnObject()
+    public boolean getHitAnObject()
     {
         return hitAnObject;
     }
@@ -35,6 +37,21 @@ public class ShadeRec
         return w;
     }
 
+    public void setHitAnObject(boolean hitAnObject)
+    {
+        this.hitAnObject = hitAnObject;
+    }
+
+    public void setHitPoint(Vector3D v)
+    {
+        hitPoint = new Point3D(v.getX(), v.getY(), v.getZ());
+    }
+
+    public void setLocalHitPoint(Vector3D v)
+    {
+        localHitPoint = new Point3D(v.getX(), v.getY(), v.getZ());
+    }
+
     public void setNormal(Vector3D v)
     {
         normal = new Normal(v.getX(), v.getY(), v.getZ());
@@ -45,13 +62,19 @@ public class ShadeRec
         normal = new Normal(n.getX(), n.getY(), n.getZ());
     }
 
-    public void setLocalHitPoint(Vector3D v)
+    public void setColor(RGBColor color)
     {
-        localHitPoint = new Point3D(v.getX(), v.getY(), v.getZ());
+        this.color = color;
+    }
+
+    public void setDepthBufferDistance(double distance)
+    {
+        depthBuffer.setDistance(distance);
     }
 
     public ShadeRec(World w)
     {
         this.w = w;
+        depthBuffer = new DepthBuffer();
     }
 }

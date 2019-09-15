@@ -2,7 +2,7 @@ package Utility;
 
 public class Normal
 {
-    double x, y, z;
+    private double x, y, z;
 
     public Normal(double x, double y, double z)
     {

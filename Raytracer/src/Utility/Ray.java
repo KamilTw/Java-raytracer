@@ -2,8 +2,8 @@ package Utility;
 
 public class Ray
 {
-    Point3D origin;
-    Vector3D direction;
+    private Point3D origin;
+    private Vector3D direction;
 
     public Ray(Point3D origin, Vector3D direction)
     {
