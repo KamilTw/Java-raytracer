@@ -1,5 +1,6 @@
 import Cameras.Camera;
 import Cameras.Orthographic;
+import Cameras.Perspective;
 import GeometricObjects.GeometricObject;
 import Samplers.Adaptive;
 import Utility.*;
@@ -45,13 +46,14 @@ public class Main {
         World world = new World(viewPlane, new RGBColor(0, 0, 0));
         Point3D cameraEye = new Point3D(0, 0, 200);
         Camera orthographic = new Orthographic(cameraEye);
+        Camera perspective = new Perspective(cameraEye);
 
         GeometricObject sphere1 = new Sphere(new RGBColor(0, 0, 255), new Point3D(0, 0, 0), 49);
         GeometricObject sphere2 = new Sphere(new RGBColor(255, 0, 0), new Point3D(62, 0, -25), 30);
         world.addObject(sphere1);
         world.addObject(sphere2);
 
-        world.setCamera(orthographic);
+        world.setCamera(perspective);
         world.build("Image");
         world.getCamera().renderScene(world);
     }

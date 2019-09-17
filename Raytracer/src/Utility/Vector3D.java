@@ -51,4 +51,17 @@ public class Vector3D
     {
         return new Vector3D(getX() + v.getX(), getY() + v.getY(),getZ() + v.getZ());
     }
+
+    public double getLength()
+    {
+        return Math.sqrt(x * x + y * y + z * z);
+    }
+
+    public void normalize()
+    {
+        double length = getLength();
+        x /= length;
+        y /= length;
+        z /= length;
+    }
 }
