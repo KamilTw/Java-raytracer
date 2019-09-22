@@ -1,5 +1,6 @@
 package GeometricObjects;
 
+import Materials.Material;
 import Utility.*;
 
 public class Sphere extends GeometricObject
@@ -8,9 +9,9 @@ public class Sphere extends GeometricObject
     private double radius;
     private static final double kEpsilon = 0.001f;
 
-    public Sphere(RGBColor color, Point3D center, double radius)
+    public Sphere(Material material, Point3D center, double radius)
     {
-        super(color);
+        super(material);
         this.center = center;
         this.radius = radius;
     }
@@ -58,6 +59,44 @@ public class Sphere extends GeometricObject
         }
 
         //System.out.println("No hit point");
+        return false;
+    }
+
+    @Override
+    public boolean shadowHit(Ray ray, DepthBuffer depthBuffer)
+    {
+        double distance;
+        Vector3D temp = ray.getOrigin().subtract(center);
+        double a = ray.getDirection().multiply(ray.getDirection());
+        double b = ray.getDirection().multiply(temp.multiply(2.0));
+        double c = temp.multiply(temp) - radius * radius;
+        double delta = b * b - 4.0 * a * c;
+
+        if (delta < 0.0)
+        {
+            return false;
+        }
+        else
+        {
+            double e = Math.sqrt(delta);
+            double denom = 2.0 * a;
+            distance = (-b - e) / denom;           // first solution
+
+            if (distance > kEpsilon && e != 0)
+            {
+                depthBuffer.setDistance(distance);
+                return true;
+            }
+
+            distance = (-b + e) / denom;           // second solution
+
+            if (distance > kEpsilon)
+            {
+                depthBuffer.setDistance(distance);
+                return true;
+            }
+        }
+
         return false;
     }
 }

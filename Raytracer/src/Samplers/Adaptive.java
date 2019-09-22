@@ -44,7 +44,7 @@ public class Adaptive implements Sampler
         {
             Point2D middle = A.subtract(C);
             RGBColor middleColor = camera.getPixelColor(middle.getX(), middle.getY(), world);
-            pixelColor = pixelColor.add(middleColor.multiply(1 / (float)Math.pow(4, counter - 1)));
+            pixelColor = middleColor.multiply(1 / (float)Math.pow(4, counter - 1));
         }
 
         return pixelColor;

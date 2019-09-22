@@ -9,7 +9,7 @@ public class ViewPlane
     private float pixelSize;
     private Sampler sampler;
 
-    public ViewPlane(int hres, int vres, int pixelSize, Sampler sampler)
+    public ViewPlane(int hres, int vres, float pixelSize, Sampler sampler)
     {
         this.hres = hres;
         this.vres = vres;

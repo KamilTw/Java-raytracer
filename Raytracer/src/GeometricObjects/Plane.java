@@ -1,5 +1,6 @@
 package GeometricObjects;
 
+import Materials.Material;
 import Utility.*;
 
 public class Plane extends GeometricObject
@@ -8,9 +9,9 @@ public class Plane extends GeometricObject
     private Normal n;
     private static final double kEpsilon = 0.001f;
 
-    public Plane(RGBColor color, Point3D p, Normal n)
+    public Plane(Material material, Point3D p, Normal n)
     {
-        super(color);
+        super(material);
         this.p = p;
         this.n = n;
     }
@@ -30,6 +31,19 @@ public class Plane extends GeometricObject
         }
 
         //System.out.println("No hit point");
+        return false;
+    }
+
+    @Override
+    public boolean shadowHit(Ray ray, DepthBuffer depthBuffer)
+    {
+        double distance = p.subtract(ray.getOrigin()).multiply(n) / ray.getDirection().multiply(n);
+
+        if (distance > kEpsilon)
+        {
+            depthBuffer.setDistance(distance);
+            return true;
+        }
         return false;
     }
 }

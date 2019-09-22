@@ -14,7 +14,7 @@ public class Perspective extends Camera
     public RGBColor getPixelColor(float x, float y, World world)
     {
         Point3D origin = getEye();
-        Vector3D direction = new Vector3D(x, y, 50 - origin.getZ());
+        Vector3D direction = new Vector3D(x, y, 100 - origin.getZ());
 
         Ray ray = new Ray(origin, direction);
         ray.getDirection().normalize();

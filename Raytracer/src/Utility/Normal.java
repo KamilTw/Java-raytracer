@@ -25,4 +25,9 @@ public class Normal
     {
         return z;
     }
+
+    public Normal multiply(double a)
+    {
+        return new Normal(x * a, y * a, z * a);
+    }
 }

@@ -2,14 +2,14 @@ package World;
 
 import Cameras.Camera;
 import GeometricObjects.GeometricObject;
+import Lights.Ambient;
 import Lights.Light;
 import Tracers.MultipleObjects;
+import Tracers.RayCast;
 import Tracers.Tracer;
-import Utility.DepthBuffer;
-import Utility.RGBColor;
-import Utility.Ray;
-import Utility.ShadeRec;
+import Utility.*;
 
+import java.awt.*;
 import java.util.Vector;
 
 public class World
@@ -17,18 +17,20 @@ public class World
     private ViewPlane viewPlane;
     private RGBColor bgColor;
     private Tracer tracer;
-    private Light ambient;
+    private Ambient ambient;
     private Camera camera;
     private Vector<GeometricObject> objects;
     private Vector<Light> lights;
     private Image image;
 
-    public World(ViewPlane viewPlane, RGBColor bgColor)
+    public World(ViewPlane viewPlane, RGBColor bgColor, Ambient ambient)
     {
         this.viewPlane = viewPlane;
         this.bgColor = bgColor;
+        this.ambient = ambient;
 
         objects = new Vector<GeometricObject>();
+        lights = new Vector<Light>();
     }
 
     public ViewPlane getViewPlane()
@@ -46,9 +48,24 @@ public class World
         return tracer;
     }
 
+    public Ambient getAmbient()
+    {
+        return ambient;
+    }
+
     public Camera getCamera()
     {
         return camera;
+    }
+
+    public Vector<GeometricObject> getObjects()
+    {
+        return objects;
+    }
+
+    public Vector<Light> getLights()
+    {
+        return lights;
     }
 
     public Image getImage()
@@ -74,12 +91,14 @@ public class World
     public void build(String imageName)
     {
         image = new Image(imageName, viewPlane.getVres(), viewPlane.getHres());
-        tracer = new MultipleObjects(this);
+        tracer = new RayCast(this);
     }
 
     public ShadeRec hitObjects(Ray ray)
     {
-        ShadeRec sr  = new ShadeRec(this);
+        ShadeRec sr = new ShadeRec(this);
+        Normal normal = new Normal(0, 0, 0);
+        Point3D localHitPoint = new Point3D(0, 0, 0);
         DepthBuffer d = new DepthBuffer();
         double minDistance = 1000000;
         int numObjects = objects.size();
@@ -90,11 +109,19 @@ public class World
             {
                 sr.setHitAnObject(true);
                 minDistance = d.getDistance();
-                sr.setColor(objects.elementAt(i).getColor());
+                sr.setMaterial(objects.elementAt(i).getMaterial());
                 sr.setHitPoint(ray.getOrigin().add(ray.getDirection().multiply(d.getDistance())));
+                normal = sr.getNormal();
+                localHitPoint = sr.getLocalHitPoint();
 
                 sr.setDepthBufferDistance(minDistance);
             }
+        }
+
+        if (sr.getHitAnObject())
+        {
+            sr.setNormal(normal);
+            sr.setLocalHitPoint(localHitPoint);
         }
 
         return sr;

@@ -52,6 +52,11 @@ public class Vector3D
         return new Vector3D(getX() + v.getX(), getY() + v.getY(),getZ() + v.getZ());
     }
 
+    public Vector3D add(Normal n)
+    {
+        return new Vector3D(x + n.getX(), y + n.getY(), z + n.getZ());
+    }
+
     public double getLength()
     {
         return Math.sqrt(x * x + y * y + z * z);

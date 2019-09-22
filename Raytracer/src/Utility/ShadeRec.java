@@ -1,13 +1,17 @@
 package Utility;
 
+import Materials.Material;
 import World.World;
 
 public class ShadeRec
 {
-    private boolean hitAnObject;
+    private boolean hitAnObject = false;
+    private Material material;
     private Point3D hitPoint;
     private Point3D localHitPoint;
     private Normal normal;
+    private Ray ray;
+    private int depth;
     private RGBColor color;
     private DepthBuffer depthBuffer;
     private World w;
@@ -15,6 +19,16 @@ public class ShadeRec
     public boolean getHitAnObject()
     {
         return hitAnObject;
+    }
+
+    public Material getMaterial()
+    {
+        return material;
+    }
+
+    public Point3D getHitPoint()
+    {
+        return hitPoint;
     }
 
     public Point3D getLocalHitPoint()
@@ -25,6 +39,11 @@ public class ShadeRec
     public Normal getNormal()
     {
         return normal;
+    }
+
+    public Ray getRay()
+    {
+        return ray;
     }
 
     public RGBColor getColor()
@@ -42,6 +61,11 @@ public class ShadeRec
         this.hitAnObject = hitAnObject;
     }
 
+    public void setMaterial(Material material)
+    {
+        this.material = material;
+    }
+
     public void setHitPoint(Vector3D v)
     {
         hitPoint = new Point3D(v.getX(), v.getY(), v.getZ());
@@ -52,6 +76,11 @@ public class ShadeRec
         localHitPoint = new Point3D(v.getX(), v.getY(), v.getZ());
     }
 
+    public void setLocalHitPoint(Point3D localHitPoint)
+    {
+        this.localHitPoint = localHitPoint;
+    }
+
     public void setNormal(Vector3D v)
     {
         normal = new Normal(v.getX(), v.getY(), v.getZ());
@@ -60,6 +89,11 @@ public class ShadeRec
     public void setNormal(Normal n)
     {
         normal = new Normal(n.getX(), n.getY(), n.getZ());
+    }
+
+    public void setRay(Ray ray)
+    {
+        this.ray = ray;
     }
 
     public void setColor(RGBColor color)
