@@ -4,12 +4,10 @@ import Cameras.Camera;
 import GeometricObjects.GeometricObject;
 import Lights.Ambient;
 import Lights.Light;
-import Tracers.MultipleObjects;
-import Tracers.RayCast;
 import Tracers.Tracer;
+import Tracers.Whitted;
 import Utility.*;
 
-import java.awt.*;
 import java.util.Vector;
 
 public class World
@@ -91,7 +89,7 @@ public class World
     public void build(String imageName)
     {
         image = new Image(imageName, viewPlane.getVres(), viewPlane.getHres());
-        tracer = new RayCast(this);
+        tracer = new Whitted(this);
     }
 
     public ShadeRec hitObjects(Ray ray)

@@ -13,10 +13,25 @@ public class Phong implements Material
     private Lambertian diffuseBRDF;
     private GlossySpecular specularBRDF;
 
-    public Phong(RGBColor ca, float ka, RGBColor cd, float kd, RGBColor cs, float ks, float exp)
+    public Phong()
+    {
+        ambientBRDF = new Lambertian(0, new RGBColor(0, 0, 0));
+        diffuseBRDF = new Lambertian(0, new RGBColor(0, 0, 0));
+        specularBRDF = new GlossySpecular(0, new RGBColor(0, 0, 0), 0);
+    }
+
+    public void setAmbient(RGBColor ca, float ka)
     {
         ambientBRDF = new Lambertian(ka, ca);
+    }
+
+    public void setDiffuse(RGBColor cd, float kd)
+    {
         diffuseBRDF = new Lambertian(kd, cd);
+    }
+
+    public void setSpecular(RGBColor cs, float ks, float exp)
+    {
         specularBRDF = new GlossySpecular(ks, cs, exp);
     }
 
@@ -24,7 +39,7 @@ public class Phong implements Material
     public RGBColor shade(ShadeRec sr)
     {
         // Ambient
-        Vector3D wo = new Vector3D(-sr.getRay().getDirection().getX(), -sr.getRay().getDirection().getY(), -sr.getRay().getDirection().getZ());
+        Vector3D wo = sr.getRay().getDirection().reverse();
         RGBColor L = ambientBRDF.rho(sr, wo).multiply(sr.getWorld().getAmbient().L());
 
         // Diffuse + specular
@@ -40,6 +55,7 @@ public class Phong implements Material
 
                 if (sr.getWorld().getLights().elementAt(i).isCastingShadow())
                 {
+                    // Shadow ray from object hit point to light source
                     Ray shadowRay = new Ray(sr.getHitPoint(), wi);
                     inShadow = sr.getWorld().getLights().elementAt(i).inShadow(shadowRay, sr);
                 }

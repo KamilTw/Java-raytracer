@@ -13,7 +13,7 @@ public class RayCast extends Tracer
     }
 
     @Override
-    public RGBColor traceRay(Ray ray)
+    public RGBColor traceRay(Ray ray, int depth)
     {
         ShadeRec sr = getWorld().hitObjects(ray);
 

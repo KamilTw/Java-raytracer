@@ -30,4 +30,9 @@ public class Normal
     {
         return new Normal(x * a, y * a, z * a);
     }
+
+    public Normal reverse()
+    {
+        return new Normal(-getX(), -getY(), -getZ());
+    }
 }

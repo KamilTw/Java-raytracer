@@ -19,6 +19,6 @@ public class Perspective extends Camera
         Ray ray = new Ray(origin, direction);
         ray.getDirection().normalize();
 
-        return world.getTracer().traceRay(ray);
+        return world.getTracer().traceRay(ray, 0);
     }
 }

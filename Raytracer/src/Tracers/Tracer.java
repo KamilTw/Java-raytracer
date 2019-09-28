@@ -13,7 +13,10 @@ public abstract class Tracer
         this.world = world;
     }
 
-    public abstract RGBColor traceRay(Ray ray);
+    public RGBColor traceRay(Ray ray, int depth)
+    {
+        return new RGBColor(0,0, 0);
+    }
 
     public World getWorld()
     {

@@ -18,6 +18,6 @@ public class Orthographic extends Camera
 
         Ray ray = new Ray(origin, direction);
 
-        return world.getTracer().traceRay(ray);
+        return world.getTracer().traceRay(ray, 0);
     }
 }

@@ -60,6 +60,11 @@ public class RGBColor
         return new RGBColor(getR() + c.getR(), getG() + c.getG(), getB() + c.getB());
     }
 
+    public RGBColor divide(double number)
+    {
+        return new RGBColor(getR() / (float)number, getG() / (float)number, getB() / (float)number);
+    }
+
     public void maxToOne()
     {
         float maxValue = Math.max(getR(), Math.max(getG(), getB()));

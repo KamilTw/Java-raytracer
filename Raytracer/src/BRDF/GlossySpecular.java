@@ -21,7 +21,7 @@ public class GlossySpecular
     {
         RGBColor L = new RGBColor(0, 0, 0);
         double ndotwi = wi.multiply(sr.getNormal());
-        Vector3D minusWi = new Vector3D(-wi.getX(), -wi.getY(), -wi.getZ());
+        Vector3D minusWi = wi.reverse();
         Vector3D r = minusWi.add(sr.getNormal().multiply(2.0).multiply(ndotwi));
         double rdotwo = wo.multiply(r);
 

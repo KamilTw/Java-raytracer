@@ -12,7 +12,6 @@ public class ShadeRec
     private Normal normal;
     private Ray ray;
     private int depth;
-    private RGBColor color;
     private DepthBuffer depthBuffer;
     private World w;
 
@@ -46,9 +45,9 @@ public class ShadeRec
         return ray;
     }
 
-    public RGBColor getColor()
+    public int getDepth()
     {
-        return color;
+        return depth;
     }
 
     public World getWorld()
@@ -96,9 +95,9 @@ public class ShadeRec
         this.ray = ray;
     }
 
-    public void setColor(RGBColor color)
+    public void setDepth(int depth)
     {
-        this.color = color;
+        this.depth = depth;
     }
 
     public void setDepthBufferDistance(double distance)

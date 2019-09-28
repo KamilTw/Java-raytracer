@@ -8,6 +8,7 @@ public class ViewPlane
     private int vres;
     private float pixelSize;
     private Sampler sampler;
+    private int maxBounces = 10;
 
     public ViewPlane(int hres, int vres, float pixelSize, Sampler sampler)
     {
@@ -35,5 +36,10 @@ public class ViewPlane
     public Sampler getSampler()
     {
         return sampler;
+    }
+
+    public int getMaxBounces()
+    {
+        return maxBounces;
     }
 }
